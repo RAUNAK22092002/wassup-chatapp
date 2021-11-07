@@ -1,0 +1,60 @@
+/* .top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: green;
+} */
+.message_area {
+  /* display:flex;
+align-items:center;
+justify-content:center; */
+  background-color: aquamarine;
+  height: 300px;
+
+  /* to get the scroll bar inside the message area */
+
+  overflow-y: auto;
+}
+.text {
+  /* display:block; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height:10px; */
+  /* width:100px; */
+  border-radius: 6px;
+}
+.text input {
+  width: 120vh;
+  height: 25px;
+}
+.contain {
+  border: 2px solid red;
+  margin: auto;
+  width: 120vh;
+  /* padding:10vh; */
+}
+.incoming {
+  background: white;
+  border-radius: 10px;
+  float: right;
+  clear: both;
+  width: 300px;
+  margin: 10px;
+}
+.outgoing {
+  background: white;
+  border-radius: 10px;
+  width: 300px;
+  /* position: relative; */
+  clear: both;
+  /* height:100px; */
+  float: left;
+  margin: 10px;
+}
+.top{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background-color: green;
+        }

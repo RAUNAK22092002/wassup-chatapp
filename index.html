@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="/public/style.css"> -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+    .top{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background-color: rgb(67, 107, 6);
+
+        
+    }
+    .top h1{
+    color:white;
+        font-weight: 700;
+    }
+    
+    .message_area{
+        
+        /* background: rgb(171, 171, 235); */
+
+        height: 500px;
+        background-image: url('wall.png');
+        /* to get the scroll bar inside the message area */
+        
+        overflow-y: auto;
+        }
+        #textarea{
+        /* display:block; */
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        /* text-align: center; */
+        height:20px;
+        /* width:100px; */
+        border-radius:6px;
+        width: 796px;
+        
+        }
+        body{
+            display: flex;
+    align-items: center;
+    justify-content: center;
+      min-height: 100vh;
+        }
+       
+        .contain{
+        border: 2px solid black;
+        /* display: block;
+        margin: auto;
+        width:120vh; */
+         width: 800px;
+    max-width: 90%;
+    margin:auto;
+        /* padding:10vh; */
+        }
+        .incoming {
+        background: rgb(236, 121, 121);
+        border-radius: 10px;
+        float:left;
+        clear: both;
+        /* width: 250px; */
+        margin:8px;
+        padding:3px;
+        }
+        
+        .outgoing {
+        background: greenyellow;
+        border-radius: 10px;
+        /* width: 250px; */
+        /* position: relative; */
+        clear: both;
+        /* height:100px; */
+        float:right;
+         padding:3px;
+        margin:8px;
+        }
+        </style>
+
+  </head>
+  <body>
+      
+        <div class="contain">
+<div class="top">
+    <!-- <img src="—Pngtree—whatsapp social media icon design_3654805.png">\0  -->
+        <!-- <i class="fa fa-twitter" aria-hidden="true"></i> -->
+        <h1> Wassup  </h1>
+</div>
+<div class="message_area">
+
+<!-- <img src="jt4AoG.jpg"> -->
+<div class="outgoing">
+        
+</div>
+<div class="incoming">
+  </div>
+<!-- width:120vh;
+ -->
+</div>
+ <div>
+        <!-- <input type="text" class="text" placeholder="write ur message"> -->
+        <textarea id="textarea" cols="30" rows="1" placeholder="Write a message..."></textarea>
+</div>
+        </div>
+<!-- <script src="server.js"></script> -->
+        <script src="/socket.io/socket.io.js"></script>
+	<!-- <script src="/public/client.js">
+         -->
+         <!-- <script src="client.js"></script> -->
+
+      
+       <script>
+               const socket = io()
+let name;
+let textarea = document.querySelector('#textarea')
+let messageArea = document.querySelector('.message_area')
+do {
+    name = prompt('Please enter your name: ')
+} while(!name)
+
+textarea.addEventListener('keyup', (e) => {
+    if(e.key === 'Enter') {
+        sendMessage(e.target.value)
+    }
+})
+
+function sendMessage(message) {
+    let msg = {
+        user: name,
+        message: message.trim()
+    }
+    // Append 
+    appendMessage(msg, 'outgoing')
+    textarea.value = " "
+    scrollToBottom()
+
+    // Send to server 
+    socket.emit('message', msg)
+
+}
+
+function appendMessage(msg, type) {
+    let mainDiv = document.createElement('div')
+    let className = type
+    mainDiv.classList.add(className)
+
+    let markup = `
+        <h4>${msg.user}</h4>
+        <p>${msg.message}</p>
+    `
+    mainDiv.innerHTML = markup
+    messageArea.appendChild(mainDiv)
+}
+
+// Recieve messages 
+socket.on('message', (msg) => {
+    appendMessage(msg, 'incoming')
+    scrollToBottom()
+})
+
+function scrollToBottom() {
+    messageArea.scrollTop = messageArea.scrollHeight
+}
+
+
+</script>
+
+    
+  </body>
+</html>
+
